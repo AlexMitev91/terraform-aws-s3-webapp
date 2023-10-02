@@ -70,6 +70,12 @@ EOF
 }
 
 resource "aws_s3_object" "webapp" {
+  depends_on = [
+    aws_s3_bucket_acl.bucket,
+    aws_s3_bucket_ownership_controls.bucket,
+    aws_s3_bucket_public_access_block.bucket,
+  ]
+
   acl          = "public-read"
   key          = "index.html"
   bucket       = aws_s3_bucket.bucket.id
